@@ -1,8 +1,10 @@
-import React, { useState, useRef } from "react";
-import { View, Text, Button, StyleSheet, Pressable } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
+import React, { useRef, useState } from "react";
+import { Button, Pressable, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { decryptData } from "./helpers";
+import { styles } from "./styles";
 
 export default function ScannerScreen() {
   const [permission, requestPermission] = useCameraPermissions();
@@ -12,10 +14,6 @@ export default function ScannerScreen() {
   const cameraRef = useRef(null);
 
   const isPermissionGranted = Boolean(permission?.granted);
-
-  const decryptData = (data) => {
-    return "decrypted data";
-  }
 
   const handleBarcodeScanned = ({ data }: { data: string }) => {
     if (!scanned) {
@@ -78,62 +76,3 @@ export default function ScannerScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  title: {
-    textAlign: "center",
-    fontSize: 22,
-    fontWeight: "bold",
-    marginTop: 10,
-  },
-  container: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 16,
-    //backgroundColor : "#D3D3D3"
-  },
-cameraContainer: {
-  width: 300,          
-  height: 500,         
-  borderRadius: 20,    
-  overflow: "hidden",  
-  alignSelf: "center", 
-  marginVertical: 20,  
-  backgroundColor: "#000", 
-},
-  resultContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  resultText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  dataText: {
-    fontSize: 16,
-    textAlign: "center",
-    color: "#333",
-    marginBottom: 20,
-  },
-  backButton: {
-    position: "absolute",
-    top: 40,
-    right: 20,
-    backgroundColor: "rgba(0,0,0,0.6)",
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 8,
-  },
-  backText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-});
